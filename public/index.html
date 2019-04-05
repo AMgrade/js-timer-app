@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Timer App</title>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div class="page-wrapper">
+  <header class="bg-primary">
+    <div class="container-fluid px-5">
+      <div class="row align-items-center">
+        <div class="col-4"></div>
+
+        <div class="col">
+          <h4 class="text-center text-capitalize py-4 text-white mb-0">Timer app</h4>
+        </div>
+
+        <div class="col-4 text-right" id="userOut">
+          <button type="button" class="btn btn-outline-light mr-2" data-toggle="modal"
+                  data-target="#loginModal">Sign in
+          </button>
+
+          <button type="button" class="btn btn-outline-light" data-toggle="modal"
+                  data-target="#registrationModal">Registration
+          </button>
+        </div>
+
+        <div class="col-4 text-right d-none" id="userIn">
+          <span class="d-inline-block mr-3 text-light align-middle" id="currentUser">
+            User
+          </span>
+
+          <button type="button" class="btn btn-outline-light" id="btnLogout">Log Out
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section-timer py-4 border-bottom border-top border-primary">
+      <div class="container-fluid px-5 timer-wrapper"></div>
+    </section>
+
+    <section class="section-task-items py-5 d-none">
+      <div class="container-fluid px-5">
+        <div class="task-items__filer mb-4">
+          <div class="row align-items-center">
+            <div class="col-auto">
+              Sort by
+            </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-sm btn-outline-primary mr-2">Date</button>
+              <button type="button" class="btn btn-sm btn-outline-primary">Project</button>
+            </div>
+          </div>
+        </div>
+        <div class="task-items">
+          <div class="task-item mb-4" data-id="1">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <div class="date">
+                  25.01.18
+                </div>
+              </div>
+
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Description">
+              </div>
+
+              <div class="col-auto">
+                <div class="dropdown">
+                  <button class="btn btn-outline-primary dropdown-toggle" type="button"
+                          data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false">
+                    Select Project
+                  </button>
+
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <select multiple="" name="selectProject" class="form-control">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
+
+                    <a role="button" class="dropdown-item" data-toggle="modal"
+                       data-target="#addProject">Create a new project</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-auto" style="flex: 0 0 255px">
+                <div class="timer">
+                  00.00.00
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="task-item mb-4" data-id="2">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <div class="date">
+                  25.01.18
+                </div>
+              </div>
+
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Description">
+              </div>
+
+              <div class="col-auto">
+                <div class="dropdown">
+                  <button class="btn btn-outline-primary dropdown-toggle" type="button"
+                          data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false">
+                    Select Project
+                  </button>
+
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <select multiple="" name="selectProject" class="form-control">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
+
+                    <a role="button" class="dropdown-item" data-toggle="modal"
+                       data-target="#addProject">Create a new project</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-auto" style="flex: 0 0 255px">
+                <div class="timer">
+                  00.00.00
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Sign in</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+
+        <div class="alert alert-warning d-none" role="alert" id="alertLogin"></div>
+
+        <div class="modal-body">
+            <div class="form-group">
+              <input type="email" class="form-control" name="description" placeholder="Email" id="signInEmail">
+            </div>
+
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password" id="signInPass">
+            </div>
+
+            <div class="row justify-content-between align-items-center">
+              <div class="col-auto">
+                <button type="button" class="btn btn-primary" id="btnSignIn">Sign in</button>
+              </div>
+
+              <div class="col-auto">
+                <a role="button" class="text-primary" data-toggle="modal"
+                   data-target="#registrationModal" data-dismiss="modal" aria-label="Close">
+                  Registration
+                </a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Registration</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+
+        <div class="alert alert-warning d-none" role="alert" id="alertReg"></div>
+
+        <div class="modal-body">
+          <form action="">
+            <div class="form-group">
+              <input type="email" class="form-control" name="description" placeholder="Email" id="regEmail">
+            </div>
+
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password" id="regPass">
+            </div>
+
+            <div class="row justify-content-between align-items-center">
+              <div class="col-auto">
+                <button type="button" class="btn btn-primary" id="btnReg">Registration</button>
+              </div>
+
+              <div class="col-auto">
+                <a role="button" class="text-primary" data-toggle="modal" data-target="#loginModal"
+                   data-dismiss="modal" aria-label="Close">
+                  Sign in
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<script type="module" crossorigin="anonymous" src="assets/js/app.js"></script>
+</body>
+</html>

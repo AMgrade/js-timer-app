@@ -1,0 +1,62 @@
+# Application
+.env
+.env.testing
+/node_modules
+/dist
+/~resources
+/storage/debugbar
+package-lock.json
+# Framework
+/vendor
+/public/build
+/public/assets
+/public/images
+
+# IDE-Helper package files
+.phpstorm.meta.php
+_ide_helper*
+
+# IDE Projects
+/.idea
+/.nbproject
+/.project
+/nbproject
+/project
+/*.sublime-project
+/.vscode
+Docker
+Docker/
+Docker/*
+
+# Generic
+*~
+*.tmp
+*.bak
+*.swp
+*.kate-swp
+*.DS_Store
+*.log
+Thumbs.db
+
+# Utils
+.sass-cache
+.gulp
+code_coverage
+coverage
+.coverage
+
+# Archives
+*.zip
+*.7z
+*.rar
+*.gz
+*.tgz
+*.bz2
+*.tbz2
+
+.tags*
+Vagrantfile
+/.vagrant
+after.sh
+
+tests/_output/*
